@@ -1,15 +1,35 @@
 name: Build iOS App
-on: [push]
+
+on:
+  push:
+    branches: [ "master", "main" ]
+  workflow_dispatch:
+
 jobs:
   build:
     runs-on: macos-latest
+
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
       - name: Setup .NET
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: 8.0.x
-      - name: Install MAUI
-        run: dotnet workload install maui
+          dotnet-version: '8.0.x'
+
+      - name: Install MAUI Workload
+        run: dotnet workload install maui-ios
+
+      - name: Restore Dependencies
+        run: dotnet restore MauiApp1/MauiApp1.csproj
+
       - name: Build IPA
-        run: dotnet build MauiApp1/MauiApp1.csproj -c Release -f net8.0-ios /p:ArchiveOnBuild=true /p:CheckEolTargetFramework=false
+        run: |
+          dotnet build MauiApp1/MauiApp1.csproj \
+          -c Release \
+          -f net8.0-ios \
+          /p:ArchiveOnBuild=true \
+          /p:CheckEolTargetFramework=false \
+          /p:ErrorOnDuplicatePublishOutputFiles=false
+
