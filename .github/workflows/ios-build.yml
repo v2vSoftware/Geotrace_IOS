@@ -12,4 +12,4 @@ jobs:
       - name: Install MAUI
         run: dotnet workload install maui
       - name: Build IPA
-        run: dotnet build MauiApp1/MauiApp1.csproj -c Release -f net8.0-ios /p:ArchiveOnBuild=true
+        run: dotnet build MauiApp1/MauiApp1.csproj -c Release -f net8.0-ios /p:ArchiveOnBuild=true /p:CheckEolTargetFramework=false
