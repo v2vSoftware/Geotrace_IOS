@@ -32,4 +32,3 @@ jobs:
           /p:ArchiveOnBuild=true \
           /p:CheckEolTargetFramework=false \
           /p:ErrorOnDuplicatePublishOutputFiles=false
-
